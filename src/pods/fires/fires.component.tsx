@@ -57,7 +57,7 @@ export const Fires = () => {
             onChangeEvent={(event) => setYearSelected(event.target.value)}
           />
         ) : (
-          <Loader text={'loading ...'} />
+          <Loader text={'Carregant ...'} />
         )}
       </div>
       <div>
@@ -70,7 +70,7 @@ export const Fires = () => {
             orderAsc={orderAsc}
           />
         ) : (
-          <Loader text={'Please, select a date.'} />
+          <Loader text={'Sel·lecciona un any.'} />
         )}
       </div>
     </>
