@@ -4,8 +4,10 @@ import { mapAvailableDataYears, mapFiresFromApiToVm } from './mappers';
 import { APIFires, APIYears, Column, COLUMNS, VMFires } from './model';
 import { FiresTable } from './fires-table.component';
 import { Loader, Selector } from '../../common';
+import { useYearParameters } from '../../common/hooks/use-year-parameters';
 
 export const Fires = () => {
+  const [year, setYear] = useYearParameters();
   const [fires, setFires] = React.useState<VMFires[]>([]);
   const [yearSelected, setYearSelected] = React.useState<string>('');
   const [availableYears, setAvailableYears] = React.useState<string[]>([]);
@@ -34,6 +36,10 @@ export const Fires = () => {
       (error) => console.log(error)
     );
   }, []);
+
+  React.useEffect(() => {
+    year && setYearSelected(year);
+  }, [year]);
 
   const headerClicked = (column: Column) => {
     if (orderBy?.api_field !== column.api_field) {

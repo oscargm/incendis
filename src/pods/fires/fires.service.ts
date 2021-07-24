@@ -15,8 +15,8 @@ export const getFires = (
             orderBy !== ''
               ? `ORDER BY ${orderBy} ${orderAsc ? 'ASC' : 'DESC'}`
               : ''
-          }`
-        : ''
+          } AND haarbrades !=0 AND hanoarbrad !=0 AND hanoforest !=0 AND haforestal != 0`
+        : ' WHERE haarbrades !=0 AND hanoarbrad !=0 AND hanoforest !=0 AND haforestal != 0'
     }`,
     successCallback,
     failCallback
