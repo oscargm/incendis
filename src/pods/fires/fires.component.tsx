@@ -5,9 +5,10 @@ import { APIFires, APIYears, Column, COLUMNS, VMFires } from './model';
 import { FiresTable } from './fires-table.component';
 import { Loader, Selector } from '../../common';
 import { useYearParameters } from '../../common/hooks/use-year-parameters';
+import { TableContainer } from './fires-table.styles';
 
 export const Fires = () => {
-  const [year, setYear] = useYearParameters();
+  const [year] = useYearParameters();
   const [fires, setFires] = React.useState<VMFires[]>([]);
   const [yearSelected, setYearSelected] = React.useState<string>('');
   const [availableYears, setAvailableYears] = React.useState<string[]>([]);
@@ -66,7 +67,7 @@ export const Fires = () => {
           <Loader text={'Carregant ...'} />
         )}
       </div>
-      <div>
+      <TableContainer>
         {fires.length > 0 ? (
           <FiresTable
             columns={Object.values(COLUMNS)}
@@ -78,7 +79,7 @@ export const Fires = () => {
         ) : (
           <Loader text={'Sel·lecciona un any.'} />
         )}
-      </div>
+      </TableContainer>
     </>
   );
 };

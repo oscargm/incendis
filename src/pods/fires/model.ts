@@ -26,6 +26,7 @@ export interface Filter {
 
 export interface Column extends Filter {
   sortable: boolean;
+  width?: string;
 }
 
 export const COLUMNS: { [key: string]: Column } = {
@@ -34,18 +35,21 @@ export const COLUMNS: { [key: string]: Column } = {
     api_field: 'data_incendi',
     vm_field: 'fire_date',
     sortable: true,
+    width: 'min-content',
   },
   region_name: {
     text: 'Comarca',
     api_field: 'comarca',
     vm_field: 'region_name',
     sortable: true,
+    width: 'min-content',
   },
   municipality_name: {
     text: 'Municipi',
     api_field: 'termemunic',
     vm_field: 'municipality_name',
     sortable: true,
+    width: 'min-content',
   },
   forest_hectares_burnt: {
     text: 'Ha bosc cremat',

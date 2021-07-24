@@ -3,6 +3,7 @@ import styled from '@emotion/styled';
 export const Table = styled.table`
   border-collapse: collapse;
   margin: 25px 0;
+  width: 100%;
   font-size: 0.9em;
   font-family: sans-serif;
   min-width: 400px;
@@ -54,4 +55,10 @@ export const ArrowUp = styled(Arrow)`
 export const ArrowDown = styled(Arrow)`
   transform: rotate(45deg);
   -webkit-transform: rotate(45deg);
+`;
+
+export const TableContainer = styled.div`
+  max-height: 70vh;
+  overflow-x: scroll;
+  width: 100%;
 `;
