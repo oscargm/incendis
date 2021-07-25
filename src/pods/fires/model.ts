@@ -8,7 +8,8 @@ export interface APIFires {
   haforestal: string;
 }
 
-export interface VMFires {
+export interface VMFire {
+  id: number;
   fire_date: Date;
   region_name: string;
   municipality_name: string;
@@ -16,12 +17,13 @@ export interface VMFires {
   pasture_hectares_burnt: number;
   urban_hectares_burnt: number;
   total_green_hectares_burnt: number;
+  total_hectares_burnt: number;
 }
 
 export interface Filter {
   text: string;
-  api_field: keyof APIFires;
-  vm_field: keyof VMFires;
+  api_field?: keyof APIFires;
+  vm_field: keyof VMFire;
 }
 
 export interface Column extends Filter {
@@ -73,6 +75,11 @@ export const COLUMNS: { [key: string]: Column } = {
     text: 'Ha verdes cremades',
     api_field: 'haforestal',
     vm_field: 'total_green_hectares_burnt',
+    sortable: true,
+  },
+  total_hectares_burnt: {
+    text: 'Total Ha cremades',
+    vm_field: 'total_hectares_burnt',
     sortable: true,
   },
 };

@@ -14,6 +14,7 @@
     "@types/react-dom": "^17.0.0",
     "date-fns": "^2.22.1",
     "react": "^17.0.2",
+    "react-chartjs-2": "^3.0.4",
     "react-dom": "^17.0.2",
     "react-scripts": "4.0.3",
     "soda-js": "^0.2.3",

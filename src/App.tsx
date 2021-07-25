@@ -1,6 +1,6 @@
 import React from 'react';
 import './App.css';
-import { Fires } from './pods/fires/fires.component';
+import { Fires } from './scenes/fires.scene';
 
 function App() {
   return <Fires />;

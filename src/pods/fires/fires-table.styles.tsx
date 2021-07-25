@@ -1,4 +1,5 @@
 import styled from '@emotion/styled';
+import { CollapsibleElementProps } from '../../common';
 
 export const Table = styled.table`
   border-collapse: collapse;
@@ -57,8 +58,22 @@ export const ArrowDown = styled(Arrow)`
   -webkit-transform: rotate(45deg);
 `;
 
-export const TableContainer = styled.div`
-  max-height: 70vh;
-  overflow-x: scroll;
+export const HistoryOverviewContainer = styled.div<CollapsibleElementProps>(
+  ({ open }) => ({
+    height: open ? '90vh' : '10vh',
+  })
+);
+
+export const TableContainer = styled.div<CollapsibleElementProps>(
+  ({ open }) => ({
+    maxHeight: '60vh',
+    overflowY: 'scroll',
+    width: '100%',
+    height: open ? '90vh' : '5vh',
+  })
+);
+
+export const FiresHeader = styled.div`
+  height: 5vh;
   width: 100%;
 `;

@@ -1,23 +1,32 @@
 import * as React from 'react';
 import { format } from 'date-fns';
-import { Column, VMFires } from './model';
+import { Column, VMFire } from './model';
 import { Table, ArrowUp, ArrowDown } from './fires-table.styles';
 
 interface FiresTableProps {
   columns: Column[];
-  fires: VMFires[];
+  fires: VMFire[];
   onHeaderClick: (column: Column) => void;
   orderedBy: Column | undefined;
   orderAsc: boolean;
+  fireSelected: VMFire;
+  onRowClick: (fire: VMFire) => void;
 }
 
 export const FiresTable = (props: FiresTableProps) => {
-  const [rowSelected, setRowSelected] = React.useState(0);
-  const { fires, columns, onHeaderClick, orderedBy, orderAsc } = props;
-  React.useEffect(() => {}, []);
-  React.useEffect(() => {
-    console.log(orderedBy);
-  }, [orderedBy]);
+  const {
+    fires,
+    columns,
+    fireSelected,
+    onHeaderClick,
+    onRowClick,
+    orderedBy,
+    orderAsc,
+  } = props;
+  // React.useEffect(() => {}, []);
+  // React.useEffect(() => {
+  //   console.log(orderedBy);
+  // }, [orderedBy]);
   return (
     <Table>
       <thead>
@@ -36,19 +45,19 @@ export const FiresTable = (props: FiresTableProps) => {
         </tr>
       </thead>
       <tbody>
-        {fires.map((fire, fireIndex) => (
+        {fires.map((fire) => (
           <tr
-            key={`fire-${fireIndex}`}
-            className={fireIndex === rowSelected ? 'active-row' : ''}
-            onClick={() => setRowSelected(fireIndex)}
+            key={`fire-${fire.id}`}
+            className={fire.id === fireSelected.id ? 'active-row' : ''}
+            onClick={() => onRowClick(fire)}
           >
             {Object.keys(fires[0]).map((key, keyIndex) =>
-              keyIndex === 0 ? (
-                <td key={`fire-${fireIndex}-${key}`}>
+              keyIndex === 1 ? (
+                <td key={`fire-${fire.id}-${key}`}>
                   {format(fire[key], 'dd-MMM-yyyy')}
                 </td>
               ) : (
-                <td key={`fire-${fireIndex}-${key}`}>{fire[key]}</td>
+                <td key={`fire-${fire.id}-${key}`}>{fire[key]}</td>
               )
             )}
           </tr>
