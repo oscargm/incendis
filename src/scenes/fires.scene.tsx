@@ -17,6 +17,7 @@ import { useYearParameters } from '../common/hooks/use-year-parameters';
 import { TableContainer, FiresHeader } from '../pods/fires/fires-table.styles';
 // import { FireDetail } from '../pods/fire-detail/fire-detail.component';
 import { HistoryOverview } from '../pods/history-overview/history-overview.component';
+import { createFire } from '../pods/fires/utils';
 
 export const Fires = () => {
   const [year] = useYearParameters();
@@ -26,49 +27,33 @@ export const Fires = () => {
   const [overviewOpen, setOverviewOpen] = React.useState<boolean>(true);
   const [orderBy, setOrderBy] = React.useState<Column>();
   const [orderAsc, setOrderAsc] = React.useState<boolean>(true);
-  const [fireSelected, setFireSelected] = React.useState<VMFire>({
-    id: -1,
-    fire_date: new Date(),
-    region_name: '',
-    municipality_name: '',
-    forest_hectares_burnt: -1,
-    pasture_hectares_burnt: -1,
-    urban_hectares_burnt: -1,
-    total_green_hectares_burnt: -1,
-    total_hectares_burnt: -1,
-  });
+  const [fireSelected, setFireSelected] = React.useState<VMFire>(createFire());
 
+  const getFiresCallback = (rows: APIFires[]) => {
+    console.log(rows);
+    setFires(mapFiresFromApiToVm(rows));
+  };
   React.useEffect(() => {
     if (yearSelected !== '') {
-      orderBy && orderBy.vm_field === 'total_hectares_burnt'
-        ? fires.length > 0
-          ? setFires(
-              [...fires].sort(
-                (a, b) => a.total_hectares_burnt - b.total_hectares_burnt
-              )
-            )
-          : getFires(
-              yearSelected,
-              '',
-              orderAsc,
-              (rows: APIFires[]) => {
-                console.log(rows);
-                setFires(mapFiresFromApiToVm(rows));
-              },
-              (error) => console.log(error)
-            )
-        : getFires(
-            yearSelected,
-            orderBy?.api_field,
-            orderAsc,
-            (rows: APIFires[]) => {
-              console.log(rows);
-              setFires(mapFiresFromApiToVm(rows));
-            },
-            (error) => console.log(error)
-          );
+      getFires(yearSelected, getFiresCallback);
     }
-  }, [orderAsc, orderBy, yearSelected]);
+  }, [yearSelected]);
+
+  // React.useEffect(() => {
+  //   if (orderBy) {
+  //     setFires(
+  //       [...fires].sort((a, b) =>
+  //         orderAsc
+  //           ? String(a[orderBy.vm_field]).localeCompare(
+  //               String(b[orderBy?.vm_field])
+  //             )
+  //           : String(b[orderBy.vm_field]).localeCompare(
+  //               String(a[orderBy?.vm_field])
+  //             )
+  //       )
+  //     );
+  //   }
+  // }, [orderAsc, orderBy, fires]);
 
   React.useEffect(() => {
     getFiresAvailableData(
