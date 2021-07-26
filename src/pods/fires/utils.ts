@@ -13,3 +13,23 @@ export const createFire = (): VMFire => ({
   total_green_hectares_burnt: -1,
   total_hectares_burnt: -1,
 });
+
+export const orderByNumberOrDate = (
+  fires: VMFire[],
+  key: string,
+  orderAsc: boolean
+): VMFire[] => {
+  const compareFunction = (a: VMFire, b: VMFire) =>
+    orderAsc ? (a[key] > b[key] ? 1 : -1) : a[key] < b[key] ? 1 : -1;
+  return fires.sort(compareFunction);
+};
+
+export const orderByText = (
+  fires: VMFire[],
+  key: string,
+  orderAsc: boolean
+): VMFire[] => {
+  const compareFunction = (a: VMFire, b: VMFire) =>
+    orderAsc ? a[key].localeCompare(b[key]) : b[key].localeCompare(a[key]);
+  return fires.sort(compareFunction);
+};

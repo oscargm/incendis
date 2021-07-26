@@ -1,3 +1,5 @@
+import { orderByNumberOrDate, orderByText } from './utils';
+
 export interface APIFires {
   data_incendi: string;
   comarca: string;
@@ -34,6 +36,7 @@ export interface Column extends Filter {
   sortable: boolean;
   visible: boolean;
   width?: string;
+  orderFunction: (fires: VMFire[], orderAsc: boolean) => VMFire[];
 }
 
 export const COLUMNS: { [key: string]: Column } = {
@@ -44,6 +47,8 @@ export const COLUMNS: { [key: string]: Column } = {
     sortable: true,
     visible: true,
     width: 'min-content',
+    orderFunction: (fires: VMFire[], orderAsc: boolean) =>
+      orderByNumberOrDate(fires, 'fire_date', orderAsc),
   },
   region_name: {
     text: 'Comarca',
@@ -52,6 +57,8 @@ export const COLUMNS: { [key: string]: Column } = {
     sortable: true,
     visible: true,
     width: 'min-content',
+    orderFunction: (fires: VMFire[], orderAsc: boolean) =>
+      orderByText(fires, 'region_name', orderAsc),
   },
   region_code: {
     text: 'Codi comarca',
@@ -60,6 +67,7 @@ export const COLUMNS: { [key: string]: Column } = {
     visible: false,
     sortable: true,
     width: 'min-content',
+    orderFunction: (fires: VMFire[], orderAsc: boolean) => fires,
   },
   municipality_name: {
     text: 'Municipi',
@@ -68,6 +76,8 @@ export const COLUMNS: { [key: string]: Column } = {
     sortable: true,
     visible: true,
     width: 'min-content',
+    orderFunction: (fires: VMFire[], orderAsc: boolean) =>
+      orderByText(fires, 'municipality_name', orderAsc),
   },
   municipality_code: {
     text: 'Codi municipi',
@@ -76,6 +86,7 @@ export const COLUMNS: { [key: string]: Column } = {
     sortable: true,
     visible: false,
     width: 'min-content',
+    orderFunction: (fires: VMFire[], orderAsc: boolean) => fires,
   },
   forest_hectares_burnt: {
     text: 'Ha bosc cremat',
@@ -83,6 +94,8 @@ export const COLUMNS: { [key: string]: Column } = {
     vm_field: 'forest_hectares_burnt',
     visible: true,
     sortable: true,
+    orderFunction: (fires: VMFire[], orderAsc: boolean) =>
+      orderByNumberOrDate(fires, 'forest_hectares_burnt', orderAsc),
   },
   pasture_hectares_burnt: {
     text: 'Ha pastures cremades',
@@ -90,6 +103,8 @@ export const COLUMNS: { [key: string]: Column } = {
     vm_field: 'pasture_hectares_burnt',
     visible: true,
     sortable: true,
+    orderFunction: (fires: VMFire[], orderAsc: boolean) =>
+      orderByNumberOrDate(fires, 'pasture_hectares_burnt', orderAsc),
   },
   urban_hectares_burnt: {
     text: 'Ha urbanes cremades',
@@ -97,6 +112,8 @@ export const COLUMNS: { [key: string]: Column } = {
     vm_field: 'urban_hectares_burnt',
     visible: true,
     sortable: true,
+    orderFunction: (fires: VMFire[], orderAsc: boolean) =>
+      orderByNumberOrDate(fires, 'urban_hectares_burnt', orderAsc),
   },
   total_green_hectares_burnt: {
     text: 'Ha verdes cremades',
@@ -104,12 +121,16 @@ export const COLUMNS: { [key: string]: Column } = {
     vm_field: 'total_green_hectares_burnt',
     sortable: true,
     visible: true,
+    orderFunction: (fires: VMFire[], orderAsc: boolean) =>
+      orderByNumberOrDate(fires, 'total_green_hectares_burnt', orderAsc),
   },
   total_hectares_burnt: {
     text: 'Total Ha cremades',
     vm_field: 'total_hectares_burnt',
     sortable: true,
     visible: true,
+    orderFunction: (fires: VMFire[], orderAsc: boolean) =>
+      orderByNumberOrDate(fires, 'total_hectares_burnt', orderAsc),
   },
 };
 

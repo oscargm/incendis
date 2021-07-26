@@ -39,6 +39,11 @@ export const Fires = () => {
     }
   }, [yearSelected]);
 
+  React.useEffect(() => {
+    console.log('orderAsc', orderAsc);
+    orderBy &&
+      setFires(COLUMNS[orderBy.vm_field].orderFunction(fires, orderAsc));
+  }, [orderBy, orderAsc]);
   // React.useEffect(() => {
   //   if (orderBy) {
   //     setFires(
@@ -75,6 +80,7 @@ export const Fires = () => {
       setOrderAsc(true);
     } else {
       setOrderAsc(!orderAsc);
+      // setFires(COLUMNS[column.vm_field].orderFunction(fires, orderAsc));
     }
     console.log('headerClicked', column);
   };

@@ -53,8 +53,7 @@ export const FiresTable = (props: FiresTableProps) => {
             className={fire.id === fireSelected.id ? 'active-row' : ''}
             onClick={() => onRowClick(fire)}
           >
-            {columns.map((column, colIndex) => {
-              console.log(fire, column);
+            {columns.map((column) => {
               if (column.visible) {
                 return column.vm_field === 'fire_date' ? (
                   <td key={`fire-${fire.id}-${column.vm_field}`}>
